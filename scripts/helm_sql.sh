@@ -2,8 +2,33 @@
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install prj3 bitnami/postgresql --set primary.persistence.enabled=false
-$POSTGRE_SQL=prj3-postgresql
-export POSTGRES_PASSWORD=$(kubectl get secret prj3-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
-kubectl port-forward svc/"$POSTGRESQL" 5432:5432 &
+#helm uninstall prj3
 
+export POSTGRE_SQL="prj3-postgresql"
+kubectl port-forward svc/"$POSTGRE_SQL" 5432:5432 &
+
+# kubectl get secret prj3-postgresql -o jsonpath="{.data.postgres-password}"
+export POSTGRES_PASSWORD=$(kubectl get secret prj3-postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+
+# run one by one commands are below
 #PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/1_create_tables.sql
+#PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/2_seed_users.sql
+#PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/3_seed_tokens.sql
+
+export DB_USERNAME="postgres"
+export DB_PASSWORD="gjppx5zwRy"
+export DB_HOST="127.0.0.1"
+export DB_PORT="5432"
+export DB_NAME="postgres"
+
+docker build -t coworking .
+docker tag coworking:latest 758151278751.dkr.ecr.us-east-1.amazonaws.com/project3-repo:latest
+docker push 758151278751.dkr.ecr.us-east-1.amazonaws.com/project3-repo:latest
+
+# psql -h 127.0.0.1 -U postgres -W -d postgres
+
+# curl 127.0.0.1:5432/api/reports/daily_usage
+
+kubectl get secret --namespace default prj3-postgresql -o jsonpath="{.data.postgres-password}" | base64 --decode
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 758151278751.dkr.ecr.us-east-1.amazonaws.com
