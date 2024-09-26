@@ -15,11 +15,20 @@ export POSTGRES_PASSWORD=$(kubectl get secret prj3-postgresql -o jsonpath="{.dat
 #PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/2_seed_users.sql
 #PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/3_seed_tokens.sql
 
+# 43ej384YOP
+# NDNlajM4NFlPUA==
+
 export DB_USERNAME="postgres"
-export DB_PASSWORD="gjppx5zwRy"
+export DB_PASSWORD="43ej384YOP"
 export DB_HOST="127.0.0.1"
 export DB_PORT="5432"
 export DB_NAME="postgres"
+
+# ENV DB_USERNAME=postgres
+# ENV DB_PASSWORD=gjppx5zwRy
+# ENV DB_HOST=127.0.0.1
+# ENV DB_PORT=5432
+# ENV DB_NAME=postgres
 
 docker build -t coworking .
 docker tag coworking:latest 758151278751.dkr.ecr.us-east-1.amazonaws.com/project3-repo:latest
