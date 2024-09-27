@@ -25,7 +25,7 @@ export DB_PORT="5432"
 export DB_NAME="postgres"
 
 # ENV DB_USERNAME=postgres
-# ENV DB_PASSWORD=gjppx5zwRy
+# ENV DB_PASSWORD=43ej384YOP
 # ENV DB_HOST=127.0.0.1
 # ENV DB_PORT=5432
 # ENV DB_NAME=postgres
