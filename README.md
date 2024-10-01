@@ -44,10 +44,11 @@ PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f
 PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/2_seed_users.sql
 PGPASSWORD="$POSTGRES_PASSWORD"  psql -U postgres -d postgres -h 127.0.0.1 -a -f db/3_seed_tokens.sql
 ```
-### 6. Going to AWS Dashboard, create code build, add ENV data, attach policy
+### 6. Going to AWS Dashboard, create code build, add ENV data, attach policy, trigger codebuild
 ```bash
 Go to AWS dashboard > Codebuild > Create > Connect with public repository in Github > Add ENV > AWS_DEFAULT_REGION: us-east-1 > ACCOUNT_ID: 758151278751 > Result is codebuild name "prj3-codebuild"
 Go to AWS dashboard > IAM > Roles > "prj3-codebuild" > attach policy > Statement.Action: ["ecr*"] > Statement.Resource: ["*"]
+Go to codebuild > Click on button Create Trigger > choose auto build from action merge request > choose master branch
 ```
 
 ### 7. Create configmap file and run
